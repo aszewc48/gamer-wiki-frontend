@@ -1,18 +1,28 @@
 import axios from 'axios'
 import {useState,useEffect} from 'react'
+import { Link } from 'react-router-dom'
 
 const GameBox = () => {
-    const [game,setGame] = useState('')
+    const [games,setGames] = useState([])
     useEffect(() => {
         axios.get(`http://localhost:3001/gamebox/`)
-            .then(res => setGame(res.games))
+            .then(res => {
+                console.log(res.data.games)
+                setGames(res.data.games)
+            })
             .catch(err => console.log('Gamebox Error:', err))
     }, [])
     return (
         <div>
-            {game.map(element => {
+            {games.map(element => {
                 return (
-                <h1>{element.title}</h1>
+                    <div className='game-box'key={element._id}>
+                        <Link to={`/search/${element._id}`}>
+                        <h1>{element.title}</h1>
+                        <img src={element.mainImage} alt='game' height={200}/>
+                        <p>{element.subGenre}</p>
+                        </Link>
+                    </div>
                 )
             })}
         </div>

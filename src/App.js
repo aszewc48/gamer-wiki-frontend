@@ -2,8 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar';
 import HomePage from './pages/HomePage';
-import GamePage from './pages/GamePage'
+import SearchPage from './pages/SearchPage';
 import {Routes,Route,Link} from 'react-router-dom'
+import SingleGame from './pages/singleGame';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <hr></hr>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/game-page' element={<GamePage />} />
+        <Route path='/search' element={<SearchPage />} />
+        <Route path='/search/:gameId' element={<SingleGame />} />
       </Routes>
     </div>
   );

@@ -30,6 +30,14 @@ code {
   text-decoration: none;
   color: white
 }
+@media(max-width: 342px) {
+  .nav-right{
+    flex-wrap: wrap
+  }
+  .nav-right a{
+    margin: 0 40%
+  }
+}
 .nav-right{
   display: flex;
   justify-content: space-evenly;
@@ -61,3 +69,41 @@ code {
   display: block;
   margin: 0 10%
 }
+.game-box{
+  background-color: rgb(97, 155, 174);
+  border: 2px solid purple;
+  border-radius: 12px;
+  display: inline-block;
+  flex-wrap: wrap;
+  margin: 2%;
+  padding: 2% 5%;
+}
+.game-box a{
+  text-decoration: none;
+  color: white;
+}
+.single-info-section{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap
+}
+.single-info-section p{
+  margin-right: 2%
+}
+.single-panel{
+  width: 250px; 
+}
+@media(max-width: 600px) {
+.single-panel{
+  display: inline-block;
+  justify-content: center;
+}
+}
+@media(min-width: 601px){
+  .single-panel{
+    float: right;
+    margin: 0 0 2% 2%;
+    border: 1px solid purple;
+  }
+}
+
