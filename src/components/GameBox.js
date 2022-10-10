@@ -19,7 +19,9 @@ const GameBox = () => {
                     <div className='game-box'key={element._id}>
                         <Link to={`/search/${element._id}`}>
                         <h1>{element.title}</h1>
-                        <img src={element.mainImage} alt='game' height={200}/>
+                        {element.mainImage ? (
+                            <img src={element.mainImage} alt='game' height={200}/>
+                            ) : (<div className='no-image'>No Image</div>)}
                         <p>{element.subGenre}</p>
                         </Link>
                     </div>

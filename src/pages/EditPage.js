@@ -1,0 +1,160 @@
+import {useState,useEffect} from 'react'
+import {useParams,Link} from 'react-router-dom'
+import axios from 'axios'
+import GenreEdit from '../components/editors/GenreEdit'
+import SubGenreEdit from '../components/editors/SubGenreEdit'
+import MainImageEdit from '../components/editors/MainImageEdit'
+import ProducerNameEdit from '../components/editors/ProducerNameEdit'
+import ProducerEdit from '../components/editors/ProducerEdit'
+import DeveloperEdit from '../components/editors/DeveloperEdit'
+import DeveloperNameEdit from '../components/editors/DeveloperNameEdit'
+import ReleaseDateEdit from '../components/editors/ReleaseDateEdit'
+import PlatformEdit from '../components/editors/PlatformEdit'
+import TimeEdit from '../components/editors/TimeEdit'
+import ImagesEdit from '../components/editors/ImagesEdit'
+import UrlEdit from '../components/editors/urlEdit'
+import ContentEdit from '../components/editors/ContentEdit'
+import HeaderDescriptionEdit from '../components/editors/HeaderDescriptionEdit'
+
+
+const EditPage = () => {
+    const {gameId} = useParams()
+    const [game,setGame] = useState('')
+    useEffect(() => {getSingleGame(gameId)}, [gameId])
+    const getSingleGame = (gameId) => {
+        axios.get(`http://localhost:3001/game/${gameId}`)
+            .then(res => {
+                console.log(res.data.foundGameData, 'GET GAME')
+                setGame(res.data.foundGameData)
+            })
+            .catch(err => console.log('Error retrieving single game data', err))
+        }
+    
+    return (
+        <div>
+            <h1>Edit Page</h1>
+            {game ? (
+            <div>
+            <h1>{game.title}</h1>
+            <div className='edit'style={{paddingTop: '2%'}}>
+            {game.mainImage ? (
+            <img src={game.mainImage} alt='game' height={200}/>
+            ) : (<div className='no-image'>No Image</div>)}
+            <MainImageEdit game={game}/>
+            </div>
+            <div className='single-info-section'>
+            <div className='edit'>
+            <p>Genre: {' ' + game.genre}</p>
+            <GenreEdit game={game}/>
+            </div>
+            <div className='edit'>
+            <p>Sub Genre: {' ' + game.subGenre}</p>
+            <SubGenreEdit game={game}/>
+            </div>
+            </div>
+            <div className='single-info-section'>
+            <div className='edit' style={{display: 'flex',flexWrap: 'wrap', width: '70%'}}>
+            <div className='edit-col'>
+            <p ><b>Producer(s)</b></p>
+            <ProducerEdit gameId={gameId} getSingleGame={getSingleGame}/>
+            </div>
+            {game.producer.map(element => {
+                return (
+                    <div>
+                    {
+                        element.producerName &&
+                    <div key={element._id} className='edit'>
+                        <p>{element.producerName}</p>
+                        <ProducerNameEdit gameId={gameId} getSingleGame={getSingleGame} element={element}/>
+                    </div>
+                        
+                    }
+                    </div>
+                )
+                })}
+            </div>
+            </div>
+            <div className='single-info-section'>
+            <div className='edit' style={{display: 'flex',flexWrap: 'wrap', width: '70%'}}>
+            <div className='edit-col'>
+            <p><b>Developers(s)</b></p>
+            <DeveloperEdit gameId={gameId} getSingleGame={getSingleGame}/>
+            </div>
+            {game.developer.map(element => {
+                return (
+                    <div className='edit' key={element._id}>
+                        <p key={element._id}>{element.developerName}</p>
+                        <DeveloperNameEdit element={element}/>
+                    </div>
+                )
+                })}
+            </div>
+            </div>
+            <div className='single-info-section'>
+            <div className='edit' style={{display: 'flex',flexWrap: 'wrap', width: '70%'}}>
+            <div className='edit-col'>
+            <p><b>Platforms</b></p>
+            <ReleaseDateEdit gameId={gameId} getSingleGame={getSingleGame}/>
+            </div>
+            {game.releaseDate.map(element => {
+                return(
+                    <div className='edit' style={{display: 'flex',flexWrap: 'wrap', width: '40%'}} key={element._id}>
+                        <div className='edit-col'>
+                        <p><b>{element.platform}</b></p>
+                        <PlatformEdit gameId={element._id} element={element} getSingleGame={getSingleGame} />
+                        </div>
+                        {element.time.map(element => {
+                            return (
+                                <div className='edit' style={{marginLeft: '5%'}} key={element._id}>
+                                <p>{element.release}</p>
+                                <TimeEdit element={element} />
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            })}
+            </div>
+            </div>
+            <div className='single-info-section'>
+            <div className='edit' style={{display: 'flex',flexWrap: 'wrap', width: '70%'}}>
+            <div className='edit-col'>
+            <p><b>Images</b></p>
+            <ImagesEdit gameId={gameId} getSingleGame={getSingleGame} />
+            </div>
+            {game.images.map(element => {
+                return (
+                    <div className='edit'  key={element._id}>
+                        <a href={element.url}><img src={element.url} alt='game' height={150}/></a>
+                        <UrlEdit element={element}/>
+                    </div>
+                )
+            })}
+            </div>
+            </div>
+            <div className='single-info-section'>
+            <div className='edit' style={{display: 'flex',flexWrap: 'wrap', width: '100%'}}>
+            <div className='edit-col'>
+            <p><b>Content</b></p>
+            <ContentEdit gameId={gameId} getSingleGame={getSingleGame} />
+            </div>
+            {game.content.map(element => {
+                return (
+                    <div key={element._id}>
+                        <h2>{element.header}</h2>
+                        <p>{element.description}</p>
+                        <HeaderDescriptionEdit element={element}/>
+                    </div>
+                )
+            })}
+            </div>
+            </div>
+            <button className='edit-button'><Link to={`/search/${game._id}`}>View Page</Link></button>
+            </div>
+            )
+            : (<p>Loading...</p>)}
+        </div>
+    )
+}
+
+export default EditPage
