@@ -10,16 +10,20 @@ const ProducerNameEdit = (props) => {
     const updateProducerName = event => {
         setNewProducerName(event.target.value)
     }
-    const putData = () => {  
+    const putData = () => {
         axios.put(`http://localhost:3001/edit/update/producer-name/${props.element._id}`, {producerName: newProducerName})
                 .then(updatedProducerName => {
                     console.log(updatedProducerName.data)
+                    props.getSingleGame(props.gameId)
+                    setNewProducerName({
+                    producerName: ''
+                })
                     setHidden(event => !event)
                 })
             .catch(err => console.log('Error updating genre:', err))
     }
     const handleSubmit = event => {
-        // event.preventDefault()
+        event.preventDefault()
         putData()
     }
     const deleteProducerName = (event) => {
@@ -43,7 +47,7 @@ const ProducerNameEdit = (props) => {
             <div >
                 <form onSubmit={handleSubmit}>
                     <label>Producer Name:</label>
-                    <input name="producerName" value={newProducerName} onChange={updateProducerName} placeholder={props.element.producerName}  />
+                    <input name="producerName" value={newProducerName.producerName} onChange={updateProducerName} placeholder={props.element.producerName}/>
                     <button>Update</button>
                 </form>
             </div>

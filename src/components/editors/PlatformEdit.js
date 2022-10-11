@@ -5,19 +5,18 @@ import { useState } from "react"
 const PlatformEdit = (props) => {
     const [hidden,setHidden] = useState(true)
     const [hidden2,setHidden2] = useState(true)
+    const [hidden3,setHidden3] = useState(true)
     const [newRelease,setNewRelease] = useState({release: ''})
     const updateRelease = event => {
         setNewRelease({[event.target.name]:event.target.value})
     }
     
-    const handleSubmit = (event) => {
-        // event.preventDefault()  
+    const handleCreate = () => {
         const releaseObject = {gameId: props.gameId, release: newRelease.release}
         axios.post(`http://localhost:3001/edit/create/release`, releaseObject)
                 .then(updatedRelease => {
                     console.log(updatedRelease.data)
-                    props.getSingleGame(props.gameId)
-                    console.log('Game ID:',props.gameId)
+                    props.getSingleGame(props.gamerId)
                     setNewRelease({
                         release: ''
                 })
@@ -25,25 +24,54 @@ const PlatformEdit = (props) => {
                 })
             .catch(err => console.log('Error updating genre:', err))
     }
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        handleCreate()
+    }
 
     const [newPlatform,setNewPlatform] = useState(props.element.platform)
     const updatePlatform = event => {
         setNewPlatform(event.target.value)
     }
-    const handleUpdateSubmit = event => {
+    const handleUpdate = () => {
+        // event.preventDefault()
         axios.put(`http://localhost:3001/edit/update/platform/${props.element._id}`, {platform: newPlatform})
                 .then(updatedPlatform => {
                     console.log(updatedPlatform.data)
-                    setHidden(event => !event)
+                    props.getSingleGame(props.gamerId)
+                    setNewPlatform({
+                    platform: ''
+                })
+                    setHidden2(event => !event)
                 })
             .catch(err => console.log('Error updating genre:', err))
     }
+    const handleUpdateSubmit = (event) => {
+        event.preventDefault()
+        handleUpdate()
+    }
 
+    const handleDelete = () => {
+        axios.delete(`http://localhost:3001/edit/delete/platform/${props.element._id}`)
+            .then(res => {
+                console.log(res)
+                setHidden3(event => !event)
+                props.getSingleGame(props.gamerId)
+                    setNewPlatform({
+                    platform: ''
+                })
+            })
+            .catch(err => console.log('Error deleting data', err))
+    }
+    const deletePlatform = (event) => {
+        event.preventDefault()
+        handleDelete()
+    }
     return (
         <div>
             <button onClick={() => setHidden(event => !event)}>&#43;</button>
             <button onClick={() => setHidden2(event => !event)}>&#9874;</button>
-            <button onClick={() => setHidden(event => !event)}>&#x2715;</button>
+            <button onClick={() => setHidden3(event => !event)}>&#x2715;</button>
             {!hidden ? (
             <div >
                 <form onSubmit={handleSubmit}>
@@ -57,10 +85,19 @@ const PlatformEdit = (props) => {
             <div > 
                 <form onSubmit={handleUpdateSubmit}>
                     <label>Platform:</label>
-                    <input name="developerName" value={newPlatform} onChange={updatePlatform} placeholder={props.element.platform}  />
+                    <input name="platform" value={newPlatform.platform} onChange={updatePlatform} placeholder={props.element.platform}  />
                     <button>Update</button>
                 </form>
             </div>
+            ) : null}
+            {!hidden3 ? (
+                <div>
+                    <p>Delete?</p>
+                    <form onSubmit={deletePlatform}>
+                    <button>Yes</button>
+                    </form>
+                    <button onClick={() => setHidden2(event => !event)}>No</button>
+                </div>
             ) : null}
         </div>
     )

@@ -164,4 +164,17 @@ code {
   height: 150px;
   
 }
+.logout-button{
+  border: none;
+  background: none;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+.logout-button:hover{
+  cursor: pointer;
+}
+.search-bar{
+  width: 99%;
+  height: 30px;
+}
 

@@ -13,12 +13,16 @@ const SubGenreEdit = (props) => {
         axios.put(`http://localhost:3001/edit/update/sub-genre/${gameId}`, {subGenre: newSubGenre}, {new: true})
                 .then(updatedSubGenre => {
                     console.log(updatedSubGenre.data)
+                    props.getSingleGame(props.gameId)
+                    setNewSubGenre({
+                    subGenre: ''
+                })
                     setHidden(event => !event)
                 })
             .catch(err => console.log('Error updating genre:', err))
     }
     const handleSubmit = event => {
-        // event.preventDefault()
+        event.preventDefault()
         putData()
     }
     return (
@@ -29,7 +33,7 @@ const SubGenreEdit = (props) => {
             <div >
                 <form onSubmit={handleSubmit}>
                     <label>Sub Genre:</label>
-                    <input name="subGenre" value={newSubGenre} onChange={updateSubGenre} placeholder={props.game.subGenre}  />
+                    <input name="subGenre" value={newSubGenre.subGenre} onChange={updateSubGenre} placeholder={props.game.subGenre}/>
                     <button>Update</button>
                 </form>
             </div>

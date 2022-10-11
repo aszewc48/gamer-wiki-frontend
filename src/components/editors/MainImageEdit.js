@@ -13,12 +13,16 @@ const MainImageEdit = (props) => {
         axios.put(`http://localhost:3001/edit/update/main-image/${gameId}`, {mainImage: newMainImage}, {new: true})
                 .then(updatedMainImage => {
                     console.log(updatedMainImage.data)
+                    props.getSingleGame(props.gameId)
+                    setNewMainImage({
+                    mainImage: ''
+                })
                     setHidden(event => !event)
                 })
             .catch(err => console.log('Error updating genre:', err))
     }
     const handleSubmit = event => {
-        // event.preventDefault()
+        event.preventDefault()
         putData()
     }
     return (
@@ -29,7 +33,7 @@ const MainImageEdit = (props) => {
             <div >
                 <form onSubmit={handleSubmit}>
                     <label>Sub Genre:</label>
-                    <input name="mainImage" value={newMainImage} onChange={updateMainImage} placeholder={props.game.mainImage}  />
+                    <input name="mainImage" value={newMainImage.mainImage} onChange={updateMainImage} placeholder={props.game.mainImage}  />
                     <button>Update</button>
                 </form>
             </div>

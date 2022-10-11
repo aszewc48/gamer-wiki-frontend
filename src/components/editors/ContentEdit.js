@@ -15,7 +15,7 @@ const ContentEdit = (props) => {
     }
     
     const handleSubmit = (event) => {
-        // event.preventDefault()  
+        event.preventDefault()  
         const contentObject = {
             ...state,
             gameId: props.gameId
