@@ -11,9 +11,6 @@ const HomePage = () => {
             {!isLoggedIn && (
             <Link to='/login'>Login</Link>
             )}
-            {isLoggedIn && (
-                <Link to='/profile'>Profile</Link>
-            )}
             <p>Welcome to Gamer Wiki. Here you can search a variety of different genres of video games with multiple categories.
             You can create your own pages, and edit others as well.</p>
         </div>

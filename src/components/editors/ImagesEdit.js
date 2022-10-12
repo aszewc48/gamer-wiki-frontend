@@ -12,7 +12,12 @@ const ImagesEdit = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()  
         const urlObject = {gameId: props.gameId, url: newUrl.url}
-        axios.post(`http://localhost:3001/edit/create/url`, urlObject)
+        const storedToken = localStorage.getItem('authToken');
+        axios.post(`http://localhost:3001/edit/create/url`, urlObject, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedUrl => {
                     console.log(updatedUrl.data)
                     props.getSingleGame(props.gameId)

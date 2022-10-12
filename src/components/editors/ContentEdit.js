@@ -20,7 +20,12 @@ const ContentEdit = (props) => {
             ...state,
             gameId: props.gameId
         }
-        axios.post(`http://localhost:3001/edit/create/content`, contentObject)
+        const storedToken = localStorage.getItem('authToken');
+        axios.post(`http://localhost:3001/edit/create/content`, contentObject, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedcontent => {
                     console.log(updatedcontent.data)
                     props.getSingleGame(props.gameId)

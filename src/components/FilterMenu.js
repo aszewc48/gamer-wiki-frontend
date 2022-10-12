@@ -22,29 +22,45 @@ const FilterMenu = (props) => {
         })
         props.searchGame(matchArray)
     }
-    const handleDeveloperSearch = (event) => {
-        const matchArray = props.filteredGames.map(element => {
-            return element.developer.filter(element => {
-                return element.developerName.toLowerCase().includes(event.target.value.toLowerCase())
-            })
-        })
-    props.searchGame(matchArray.flat().map(e => e.gameEdit))
-    }
     const handleProducerSearch = (event) => {
-        const matchArray = props.filteredGames.map(element => {
-            return element.producer.filter(element => {
-                return element.producerName.toLowerCase().includes(event.target.value.toLowerCase())
-            })
+        const matchArray = props.gamesObject.producer.filter(element => {
+            return (
+                element.producerName.toLowerCase().includes(event.target.value.toLowerCase())
+            )
         })
-    props.searchGame(matchArray.flat().map(e => e.gameEdit))
+        props.searchGame(matchArray.map(e => e.gameEdit).reduce((a,c) => {
+            if(!a.map(e => e._id).includes(c._id)){
+                a.push(c)
+            }
+            return a;
+        }, []))
     }
+   
+    const handleDeveloperSearch = (event) => {
+        console.log('hi',props.gamesObject)
+        const matchArray = props.gamesObject.developer.filter(element => {
+            return (
+                element.developerName.toLowerCase().includes(event.target.value.toLowerCase())
+            )
+        })
+        props.searchGame(matchArray.map(e => e.gameEdit).reduce((a,c) => {
+            if(!a.map(e => e._id).includes(c._id)){
+                a.push(c)
+            }
+            return a;
+        }, []))
+    }
+    
     const handlePlatformSearch = (event) => {
-        const matchArray = props.filteredGames.map(element => {
-            return element.releaseDate.filter(element => {
+        const matchArray = props.gamesObject.releaseDate.filter(element => {
                 return element.platform.toLowerCase().includes(event.target.value.toLowerCase())
             })
-        })
-    props.searchGame(matchArray.flat().map(e => e.gameEdit))
+        props.searchGame(matchArray.map(e => e.gameEdit).reduce((a,c) => {
+            if(!a.map(e => e._id).includes(c._id)){
+                a.push(c)
+            }
+            return a;
+        }, []))
     }
     return (
         <div>

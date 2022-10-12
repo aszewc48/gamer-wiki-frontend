@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/auth.contexts"
 
 
 const Login = () => {
-    const{storeToken,authenticateUser} = useContext(AuthContext)
+    const{storeToken,authenticateUser,setMessage} = useContext(AuthContext)
     const navigate = useNavigate()
     const [state, setState] = useState({
         email: '',
@@ -22,14 +22,15 @@ const Login = () => {
                 console.log(res.data)
                 storeToken(res.data.authToken)
                 authenticateUser()
-                navigate('/')
+                navigate('/login')
+                setMessage(res.data.error)
             })
             .catch(err => console.log(err))
     }
     return (
-        <div>
+        <div className="form">
              <h2>Log In</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="reg-log" onSubmit={handleSubmit}>
                 <div>
                     <label>Username</label>
                     <input type='email' name='email' value={state.email} onChange={updateState}/>
@@ -38,9 +39,9 @@ const Login = () => {
                     <label>Password</label>
                     <input type="password" name='password' value={state.password} onChange={updateState}/>
                 </div>
-                <button>Log In!</button>
+                <button className="form-button">Log In!</button>
             </form>
-            <p>No account?<Link to='/signup'>Register</Link></p>
+            <p>No account?<Link style={{marginLeft: '5%'}} to='/signup' onClick={() => setMessage('')}>Register</Link></p>
         </div>
     )
 }

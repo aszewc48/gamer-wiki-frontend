@@ -13,7 +13,12 @@ const PlatformEdit = (props) => {
     
     const handleCreate = () => {
         const releaseObject = {gameId: props.gameId, release: newRelease.release}
-        axios.post(`http://localhost:3001/edit/create/release`, releaseObject)
+        const storedToken = localStorage.getItem('authToken');
+        axios.post(`http://localhost:3001/edit/create/release`, releaseObject, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedRelease => {
                     console.log(updatedRelease.data)
                     props.getSingleGame(props.gamerId)
@@ -35,7 +40,12 @@ const PlatformEdit = (props) => {
     }
     const handleUpdate = () => {
         // event.preventDefault()
-        axios.put(`http://localhost:3001/edit/update/platform/${props.element._id}`, {platform: newPlatform})
+        const storedToken = localStorage.getItem('authToken');
+        axios.put(`http://localhost:3001/edit/update/platform/${props.element._id}`, {platform: newPlatform}, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedPlatform => {
                     console.log(updatedPlatform.data)
                     props.getSingleGame(props.gamerId)
@@ -52,7 +62,12 @@ const PlatformEdit = (props) => {
     }
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:3001/edit/delete/platform/${props.element._id}`)
+        const storedToken = localStorage.getItem('authToken');
+        axios.delete(`http://localhost:3001/edit/delete/platform/${props.element._id}`, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
             .then(res => {
                 console.log(res)
                 setHidden3(event => !event)

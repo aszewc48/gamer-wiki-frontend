@@ -38,7 +38,7 @@ const EditPage = () => {
             <h1>{game.title}</h1>
             <div className='edit'style={{paddingTop: '2%'}}>
             {game.mainImage ? (
-            <img src={game.mainImage} alt='game' height={200}/>
+            <img src={game.mainImage} alt='game' height={200} width={200}/>
             ) : (<div className='no-image'>No Image</div>)}
             <MainImageEdit game={game} gameId={gameId} getSingleGame={getSingleGame}/>
             </div>
@@ -60,15 +60,9 @@ const EditPage = () => {
             </div>
             {game.producer.map(element => {
                 return (
-                    <div>
-                    {
-                        element.producerName &&
                     <div key={element._id} className='edit'>
                         <p>{element.producerName}</p>
                         <ProducerNameEdit gameId={gameId} getSingleGame={getSingleGame} element={element}/>
-                    </div>
-                        
-                    }
                     </div>
                 )
                 })}
@@ -125,7 +119,7 @@ const EditPage = () => {
             {game.images.map(element => {
                 return (
                     <div className='edit'  key={element._id}>
-                        <a href={element.url}><img src={element.url} alt='game' height={150}/></a>
+                        <a href={element.url}><img src={element.url} alt='game' height={150} width={150}/></a>
                         <UrlEdit element={element} gameId={gameId} getSingleGame={getSingleGame}/>
                     </div>
                 )

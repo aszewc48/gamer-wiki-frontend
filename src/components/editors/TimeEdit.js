@@ -9,7 +9,12 @@ const TimeEdit = (props) => {
         setNewRelease(event.target.value)
     }
     const putData = () => {  
-        axios.put(`http://localhost:3001/edit/update/release/${props.element._id}`, {release: newRelease})
+        const storedToken = localStorage.getItem('authToken');
+        axios.put(`http://localhost:3001/edit/update/release/${props.element._id}`, {release: newRelease}, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedRelease => {
                     console.log(updatedRelease.data)
                     props.getSingleGame(props.gameId)
@@ -26,7 +31,12 @@ const TimeEdit = (props) => {
     }
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:3001/edit/delete/release/${props.element._id}`)
+        const storedToken = localStorage.getItem('authToken');
+        axios.delete(`http://localhost:3001/edit/delete/release/${props.element._id}`, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
             .then(res => {
                 console.log(res)
                 setHidden2(event => !event)

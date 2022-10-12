@@ -12,7 +12,12 @@ const ProducerEdit = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()  
         const producerObject = {gameId: props.gameId, producerName: newProducerName.producerName}
-        axios.post(`http://localhost:3001/edit/create/producer-name`, producerObject)
+        const storedToken = localStorage.getItem('authToken');
+        axios.post(`http://localhost:3001/edit/create/producer-name`, producerObject, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedProducerName => {
                     console.log(updatedProducerName.data)
                     props.getSingleGame(props.gameId)

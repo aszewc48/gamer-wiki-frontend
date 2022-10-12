@@ -9,8 +9,13 @@ const MainImageEdit = (props) => {
     const updateMainImage = event => {
         setNewMainImage(event.target.value)
     }
-    const putData = () => {  
-        axios.put(`http://localhost:3001/edit/update/main-image/${gameId}`, {mainImage: newMainImage}, {new: true})
+    const putData = () => {
+        const storedToken = localStorage.getItem('authToken');  
+        axios.put(`http://localhost:3001/edit/update/main-image/${gameId}`, {mainImage: newMainImage}, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedMainImage => {
                     console.log(updatedMainImage.data)
                     props.getSingleGame(props.gameId)

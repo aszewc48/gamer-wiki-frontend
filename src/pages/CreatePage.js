@@ -20,15 +20,15 @@ const CreatePage = () => {
         axios.post('http://localhost:3001/create', state)
             .then(res => {
                 console.log(res.data)
-                navigate('/search/:gameId')
+                navigate(`/search/${res.data.game._id}`)
             })
         .catch(err => console.log('Error creating new game data:',err))
     }
 
     return (
-        <div>
+        <div className='form'>
             <h1>Create Game Page</h1>
-            <form onSubmit={handleSubmit}>
+            <form className='reg-log' onSubmit={handleSubmit}>
                 <div>
                     <label>Title</label>
                     <input name='title' value={state.title} onChange={updateState}/>
@@ -45,7 +45,7 @@ const CreatePage = () => {
                     <label>Sub Genre</label>
                     <input name='subGenre' value={state.subGenre} onChange={updateState} />
                 </div>
-                <button>Create</button>
+                <button className='form-button'>Create</button>
             </form>
         </div>
     )

@@ -12,7 +12,12 @@ const ReleaseDateEdit = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()  
         const platformObject = {gameId: props.gameId, platform: newPlatform.platform}
-        axios.post(`http://localhost:3001/edit/create/platform`, platformObject)
+        const storedToken = localStorage.getItem('authToken');
+        axios.post(`http://localhost:3001/edit/create/platform`, platformObject, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedPlatform => {
                     console.log(updatedPlatform.data)
                     props.getSingleGame(props.gameId)

@@ -4,6 +4,8 @@ import NavBar from './components/NavBar';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import {Routes,Route,Link} from 'react-router-dom'
+import { useContext } from 'react';
+import { AuthContext } from './contexts/auth.contexts';
 import SingleGame from './pages/singleGame';
 import CreatePage from './pages/CreatePage';
 import EditPage from './pages/EditPage'
@@ -11,9 +13,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import IsAnon from './components/isAnon';
 import IsPrivate from './components/isPrivate';
-import ProfilePage from './pages/ProfilePage';
 
 function App() {
+  const {message, isLoading} = useContext(AuthContext)
   return (
     <div className="App">
       <NavBar />
@@ -26,8 +28,9 @@ function App() {
         <Route path='/game/edit/:gameId' element={<IsPrivate><EditPage /></IsPrivate>} />
         <Route path='/login' element={<IsAnon><Login /></IsAnon>} />
         <Route path='/signup' element={<IsAnon><Register /></IsAnon>} />
-        <Route path='/profile' element={<IsPrivate><ProfilePage /></IsPrivate>} />
       </Routes>
+      {message && <p>{message}</p>}
+      {isLoading && <p>Loading...</p>}
     </div>
   );
 }

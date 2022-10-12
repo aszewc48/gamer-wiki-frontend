@@ -25,7 +25,12 @@ const UrlEdit = (props) => {
     // }
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:3001/edit/delete/url/${props.element._id}`)
+        const storedToken = localStorage.getItem('authToken');
+        axios.delete(`http://localhost:3001/edit/delete/url/${props.element._id}`, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
             .then(res => {
                 console.log(res)
                 setHidden(event => !event)

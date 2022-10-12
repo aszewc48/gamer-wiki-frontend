@@ -10,7 +10,12 @@ const SubGenreEdit = (props) => {
         setNewSubGenre(event.target.value)
     }
     const putData = () => {  
-        axios.put(`http://localhost:3001/edit/update/sub-genre/${gameId}`, {subGenre: newSubGenre}, {new: true})
+        const storedToken = localStorage.getItem('authToken');
+        axios.put(`http://localhost:3001/edit/update/sub-genre/${gameId}`, {subGenre: newSubGenre}, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedSubGenre => {
                     console.log(updatedSubGenre.data)
                     props.getSingleGame(props.gameId)

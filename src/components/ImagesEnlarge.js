@@ -1,20 +1,20 @@
 import { useState } from "react"
 
-const ImageEnlarge = (props) => {
+const ImagesEnlarge = (props) => {
     const [hidden,setHidden] = useState(true)
     return (
         <div>
            {!hidden ? (
             <div className="image-enlarge">
             <p onClick={() => setHidden(event => !event)}>&#x2715;</p>
-            <img src={props.game.mainImage} alt='game' />
+            <img src={props.element.url} alt='game' />
             </div>
             ) : null}
-            {props.game.mainImage ? (
-            <img src={props.game.mainImage} alt='game' height={200} width={200} onClick={() => setHidden(event => !event)}/>
+            {props.element.url ? (
+                <img src={props.element.url} alt='game' onClick={() => setHidden(event => !event)} height={150} width={150}/>
             ) : (<div style={{marginLeft: '22.5px'}} className="no-image">No image</div>)}
         </div>
     )
 }
 
-export default ImageEnlarge
+export default ImagesEnlarge

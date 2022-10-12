@@ -7,6 +7,7 @@ function AuthProvider(props){
     const [isLoggedIn,setIsLoggedIn] = useState(false)
     const [isLoading,setIsLoading] = useState(false)
     const [user,setUser] = useState(null)
+    const [message,setMessage] = useState('')
     const storeToken = token => {
         localStorage.setItem('authToken',token)
     }
@@ -43,7 +44,7 @@ function AuthProvider(props){
         authenticateUser()
     }, [])
     return (
-        <AuthContext.Provider value={{isLoggedIn, isLoading, user, storeToken, authenticateUser, logOutUser}}>
+        <AuthContext.Provider value={{isLoggedIn, isLoading, user, message, setMessage, storeToken, authenticateUser, logOutUser, setIsLoading}}>
             {props.children}
         </AuthContext.Provider>
     )

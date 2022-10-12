@@ -8,7 +8,8 @@ const HeaderDescriptionEdit = (props) => {
     const [newDescription,setNewDescription] = useState(props.element.description)
     const updateHeader = event => setNewHeader(event.target.value)
     const updateDescription = event => setNewDescription(event.target.value)
-    const putData = () => {  
+    const putData = () => {
+        const storedToken = localStorage.getItem('authToken');  
         axios.put(`http://localhost:3001/edit/update/content/${props.element._id}`, {
             header: newHeader,
             description: newDescription
@@ -32,7 +33,12 @@ const HeaderDescriptionEdit = (props) => {
     }
 
     const handleDelete = () => {
-        axios.delete(`http://localhost:3001/edit/delete/content/${props.element._id}`)
+        const storedToken = localStorage.getItem('authToken');
+        axios.delete(`http://localhost:3001/edit/delete/content/${props.element._id}`, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
             .then(res => {
                 console.log(res)
                 setHidden(event => !event)

@@ -11,7 +11,12 @@ const ProducerNameEdit = (props) => {
         setNewProducerName(event.target.value)
     }
     const putData = () => {
-        axios.put(`http://localhost:3001/edit/update/producer-name/${props.element._id}`, {producerName: newProducerName})
+        const storedToken = localStorage.getItem('authToken');
+        axios.put(`http://localhost:3001/edit/update/producer-name/${props.element._id}`, {producerName: newProducerName}, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedProducerName => {
                     console.log(updatedProducerName.data)
                     props.getSingleGame(props.gameId)
@@ -28,7 +33,12 @@ const ProducerNameEdit = (props) => {
     }
     const deleteProducerName = (event) => {
         event.preventDefault()
-        axios.delete(`http://localhost:3001/edit/delete/producer-name/${props.element._id}`)
+        const storedToken = localStorage.getItem('authToken');
+        axios.delete(`http://localhost:3001/edit/delete/producer-name/${props.element._id}`, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
             .then(res => {
                 console.log(res)
                 setHidden2(event => !event)

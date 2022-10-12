@@ -2,6 +2,7 @@ import axios from 'axios'
 import {useState,useEffect} from 'react'
 import {Link,useParams} from 'react-router-dom'
 import ImageEnlarge from '../components/ImageEnlarge'
+import ImagesEnlarge from '../components/ImagesEnlarge'
 
 
 const SingleGame = () => {
@@ -25,8 +26,12 @@ const SingleGame = () => {
             <h1>{game.title}</h1>
             <ImageEnlarge game={game}/>
             <div className='single-info-section'>
+            {game.genre &&
             <p>Genre: {' ' + game.genre}</p>
+            }
+            {game.subGenre &&
             <p>Sub Genre: {' ' + game.subGenre}</p>
+            }
             </div>
             <div className='single-info-section'>
             {game.producer[0] && <p><b>Producer(s)</b></p>}
@@ -48,7 +53,7 @@ const SingleGame = () => {
                 )
             })}
             {game.images[0] && <p><b>Images</b></p>}
-            {game.images.map(element => <a key={element._id} href={element.url}><img src={element.url} alt='game' height={150}/></a>)}
+            {game.images.map(element => <ImagesEnlarge element={element} />)}
             </div>
             {game.content.map(element => {
                 return (

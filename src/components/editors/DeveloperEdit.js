@@ -12,7 +12,12 @@ const DeveloperEdit = (props) => {
     const handleDeveloperSubmit = (event) => {
         event.preventDefault()  
         const developerObject = {gameId: props.gameId, developerName: newDeveloperName.developerName}
-        axios.post(`http://localhost:3001/edit/create/developer-name`, developerObject)
+        const storedToken = localStorage.getItem('authToken');
+        axios.post(`http://localhost:3001/edit/create/developer-name`, developerObject, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          }) 
                 .then(updatedDeveloperName => {
                     console.log(updatedDeveloperName.data)
                     props.getSingleGame(props.gameId)
