@@ -191,6 +191,13 @@ code {
   background-color:rgb(97, 155, 174);
   width: 75%
 }
+@media(max-width: 875px) {
+  .reg-log div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 .reg-log input{
   width: 65%;
   border-radius: 12px;
