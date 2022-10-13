@@ -32,7 +32,7 @@ const Login = () => {
              <h2>Log In</h2>
             <form className="reg-log" onSubmit={handleSubmit}>
                 <div>
-                    <label>Username</label>
+                    <label>Email</label>
                     <input type='email' name='email' value={state.email} onChange={updateState}/>
                 </div>
                 <div>
