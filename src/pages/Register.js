@@ -65,21 +65,21 @@ const Register = () => {
             <form className="reg-log" onSubmit={handleSubmit}>
             <div>
                     <label>Email</label>
-                    <input type='email' name='email' value={state.email} onChange={updateState}/>
                     {checker.some(ele => ele.email === state.email) &&
                     <div>
                     <p className="form-message">Email already in use</p>
                     </div>
                     } 
+                    <input type='email' name='email' value={state.email} onChange={updateState}/>
                 </div>
                 <div>
                     <label>Username</label>
-                    <input name='username' value={state.username} onChange={updateState}/>
                     {checker.some(ele => ele.username === state.username) &&
                     <div>
                     <p className="form-message">Username already in use</p>
                     </div>
                     } 
+                    <input name='username' value={state.username} onChange={updateState}/>
                 </div>
                 <div>
                     <label>Password</label>
@@ -87,8 +87,8 @@ const Register = () => {
                 </div>
                 <div>
                     <label> Confirm Password</label>
-                    <input type='password' name='password' value={state.password} onChange={updateState}/>
                     {state.confirmPassword !== state.password && <p className="form-message">Passwords must match</p>}
+                    <input type='password' name='password' value={state.password} onChange={updateState}/>
                 </div>
                 <button className="form-button">Sign Up!</button>
             </form>
