@@ -19,6 +19,7 @@ const GameBox = () => {
             .catch(err => console.log('Gamebox Error:', err))
     }, [])
     const searchGame = (gameArray) => {
+        console.log('GAME ARRAY:', gameArray)
         setGames(gameArray)
       }
     return (
@@ -31,11 +32,15 @@ const GameBox = () => {
                 return (
                     <div className='game-box'key={element._id}>
                         <Link to={`/search/${element._id}`}>
-                        <h1>{element.title}</h1>
+                        {element.title.length > 40 ? (
+                            <h1 style={{fontSize: '1em'}}>{element.title}</h1>
+                        ) : element.title.length > 15 ? (
+                            <h1 style={{fontSize: '1em',paddingTop: '10%',paddingBottom: '10%'}}>{element.title}</h1>
+                        ) : <h1>{element.title}</h1>} 
                         {element.mainImage ? (
-                            <img src={element.mainImage} alt='game' height={200} width={200}/>
+                            <img className='img-hover' src={element.mainImage} alt='game' height={200} width={200}/>
                             ) : (<div className='no-image'>No Image</div>)}
-                        <p>{element.subGenre}</p>
+                        <p>{element.genre}</p>
                         </Link>
                     </div>
                 )

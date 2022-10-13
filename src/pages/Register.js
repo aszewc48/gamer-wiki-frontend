@@ -68,7 +68,7 @@ const Register = () => {
                     <input type='email' name='email' value={state.email} onChange={updateState}/>
                     {checker.some(ele => ele.email === state.email) &&
                     <div>
-                    <p>Email already in use</p>
+                    <p className="form-message">Email already in use</p>
                     </div>
                     } 
                 </div>
@@ -77,7 +77,7 @@ const Register = () => {
                     <input name='username' value={state.username} onChange={updateState}/>
                     {checker.some(ele => ele.username === state.username) &&
                     <div>
-                    <p>Username already in use</p>
+                    <p className="form-message">Username already in use</p>
                     </div>
                     } 
                 </div>
@@ -88,7 +88,7 @@ const Register = () => {
                 <div>
                     <label> Confirm Password</label>
                     <input type='password' name='password' value={state.password} onChange={updateState}/>
-                    {state.confirmPassword !== state.password && <p>Passwords must match</p>}
+                    {state.confirmPassword !== state.password && <p className="form-message">Passwords must match</p>}
                 </div>
                 <button className="form-button">Sign Up!</button>
             </form>

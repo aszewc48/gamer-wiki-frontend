@@ -13,7 +13,11 @@ const HeaderDescriptionEdit = (props) => {
         axios.put(`http://localhost:3001/edit/update/content/${props.element._id}`, {
             header: newHeader,
             description: newDescription
-        })
+        }, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
                 .then(updatedContent => {
                     console.log(updatedContent.data)
                     props.getSingleGame(props.gameId)

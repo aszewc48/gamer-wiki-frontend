@@ -33,7 +33,6 @@ const GenreEdit = (props) => {
     return (
         <div>
             <button onClick={() => setHidden(event => !event)}>&#9874;</button>
-            <button onClick={() => setHidden(event => !event)}>&#x2715;</button>
             {!hidden ? (
             <div >
                 <form onSubmit={handleSubmit}>

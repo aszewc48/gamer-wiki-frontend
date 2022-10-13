@@ -22,13 +22,18 @@ const FilterMenu = (props) => {
         })
         props.searchGame(matchArray)
     }
+
     const handleProducerSearch = (event) => {
-        const matchArray = props.gamesObject.producer.filter(element => {
-            return (
-                element.producerName.toLowerCase().includes(event.target.value.toLowerCase())
+        const matchArray = props.filteredGames.map(element => {
+            return element.producer.filter(element => {
+                console.log('Producer Name:', element.producerName)
+            return  (
+            element.producerName.toLowerCase().includes(event.target.value.toLowerCase())    
             )
         })
-        props.searchGame(matchArray.map(e => e.gameEdit).reduce((a,c) => {
+        })
+        props.searchGame(matchArray.flat().map(e => e.gameEdit)
+        .reduce((a,c) => {
             if(!a.map(e => e._id).includes(c._id)){
                 a.push(c)
             }
@@ -38,12 +43,14 @@ const FilterMenu = (props) => {
    
     const handleDeveloperSearch = (event) => {
         console.log('hi',props.gamesObject)
-        const matchArray = props.gamesObject.developer.filter(element => {
+        const matchArray = props.filteredGames.map(element => {
+            return element.developer.filter(element => {
             return (
                 element.developerName.toLowerCase().includes(event.target.value.toLowerCase())
             )
         })
-        props.searchGame(matchArray.map(e => e.gameEdit).reduce((a,c) => {
+    })
+        props.searchGame(matchArray.flat().map(e => e.gameEdit).reduce((a,c) => {
             if(!a.map(e => e._id).includes(c._id)){
                 a.push(c)
             }
@@ -52,10 +59,12 @@ const FilterMenu = (props) => {
     }
     
     const handlePlatformSearch = (event) => {
-        const matchArray = props.gamesObject.releaseDate.filter(element => {
+        const matchArray = props.filteredGames.map(element => {
+                return element.releaseDate.filter(element => {
                 return element.platform.toLowerCase().includes(event.target.value.toLowerCase())
             })
-        props.searchGame(matchArray.map(e => e.gameEdit).reduce((a,c) => {
+        })
+        props.searchGame(matchArray.flat().map(e => e.gameEdit).reduce((a,c) => {
             if(!a.map(e => e._id).includes(c._id)){
                 a.push(c)
             }
@@ -63,7 +72,7 @@ const FilterMenu = (props) => {
         }, []))
     }
     return (
-        <div>
+        <div className="filter-button">
             {!hidden ? (
                 <div>
                     <button onClick={() => setHidden(s => !s)}>Filter by:</button>

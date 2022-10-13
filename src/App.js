@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar';
 import HomePage from './pages/HomePage';
@@ -29,7 +28,7 @@ function App() {
         <Route path='/login' element={<IsAnon><Login /></IsAnon>} />
         <Route path='/signup' element={<IsAnon><Register /></IsAnon>} />
       </Routes>
-      {message && <p>{message}</p>}
+      {message && <p className='message'>{message}</p>}
       {isLoading && <p>Loading...</p>}
     </div>
   );

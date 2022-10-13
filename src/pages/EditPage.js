@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react'
-import {useParams,Link} from 'react-router-dom'
+import {useParams,Link,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import GenreEdit from '../components/editors/GenreEdit'
 import SubGenreEdit from '../components/editors/SubGenreEdit'
@@ -19,7 +19,9 @@ import HeaderDescriptionEdit from '../components/editors/HeaderDescriptionEdit'
 
 const EditPage = () => {
     const {gameId} = useParams()
+    const navigate = useNavigate()
     const [game,setGame] = useState('')
+    const [hidden,setHidden] = useState(false)
     useEffect(() => {getSingleGame(gameId)}, [gameId])
     const getSingleGame = (gameId) => {
         axios.get(`http://localhost:3001/game/${gameId}`)
@@ -29,7 +31,19 @@ const EditPage = () => {
             })
             .catch(err => console.log('Error retrieving single game data', err))
         }
-    
+    const deleteAll = () => {
+        const storedToken = localStorage.getItem('authToken');
+        axios.delete(`http://localhost:3001/edit/delete/all/${gameId}`, {
+            headers: {
+              authorization: `Bearer ${storedToken}`
+            }
+          })
+            .then(res => {
+                console.log(res)
+                navigate('/search')
+            })
+            .catch(err => console.log('Error deleting all:' , err))
+    }
     return (
         <div>
             <h1>Edit Page</h1>
@@ -143,7 +157,17 @@ const EditPage = () => {
             })}
             </div>
             </div>
-            <button className='edit-button'><Link to={`/search/${game._id}`}>View Page</Link></button>
+            <div className='edit-button'>
+            <button><Link to={`/search/${game._id}`}>View Page</Link></button>
+            <button onClick={() => setHidden(event => !event)}>Delete Page</button>
+            {hidden && (
+                <>
+                <p>Are you sure you want to remove the entire page?</p>
+                <button onClick={deleteAll}>Yes</button>
+                <button onClick={() => setHidden(event => !event)}>No</button>
+                </>
+                )}
+            </div>
             </div>
             )
             : (<p>Loading...</p>)}

@@ -75,8 +75,10 @@ code {
   border-radius: 12px;
   display: inline-block;
   flex-wrap: wrap;
+  align-items: flex-start;
   margin: 2%;
   padding: 2% 5%;
+  max-width: 200px;
 }
 .game-box a{
   text-decoration: none;
@@ -107,12 +109,17 @@ code {
   }
 }
 .edit-button{
-  display: block;
+  display: flex;
   margin: 5% 2%;
+  align-items: center;
+  height: 20px;
 }
 .edit-button a{
   color: black;
   text-decoration: none;
+}
+.edit-button p{
+  margin: 0 2%
 }
 .image-enlarge{
   position: fixed;
@@ -203,3 +210,12 @@ code {
 .form-button{
   font-size: 1.3em
 }
+.filter-button button,
+.filter-button input{
+  font-size: 1.8em
+}
+.img-hover:hover{
+  padding: 3%;
+  border: 2px solid purple
+}
+
