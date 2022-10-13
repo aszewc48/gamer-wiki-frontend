@@ -10,7 +10,7 @@ const HeaderDescriptionEdit = (props) => {
     const updateDescription = event => setNewDescription(event.target.value)
     const putData = () => {
         const storedToken = localStorage.getItem('authToken');  
-        axios.put(`http://localhost:3001/edit/update/content/${props.element._id}`, {
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/update/content/${props.element._id}`, {
             header: newHeader,
             description: newDescription
         }, {
@@ -38,7 +38,7 @@ const HeaderDescriptionEdit = (props) => {
 
     const handleDelete = () => {
         const storedToken = localStorage.getItem('authToken');
-        axios.delete(`http://localhost:3001/edit/delete/content/${props.element._id}`, {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/edit/delete/content/${props.element._id}`, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

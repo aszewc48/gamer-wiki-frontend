@@ -11,7 +11,7 @@ const SubGenreEdit = (props) => {
     }
     const putData = () => {  
         const storedToken = localStorage.getItem('authToken');
-        axios.put(`http://localhost:3001/edit/update/sub-genre/${gameId}`, {subGenre: newSubGenre}, {
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/update/sub-genre/${gameId}`, {subGenre: newSubGenre}, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

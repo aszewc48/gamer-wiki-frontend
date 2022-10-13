@@ -11,7 +11,7 @@ const MainImageEdit = (props) => {
     }
     const putData = () => {
         const storedToken = localStorage.getItem('authToken');  
-        axios.put(`http://localhost:3001/edit/update/main-image/${gameId}`, {mainImage: newMainImage}, {
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/update/main-image/${gameId}`, {mainImage: newMainImage}, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

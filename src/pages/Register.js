@@ -44,7 +44,7 @@ const Register = () => {
       setIsLoading(false);
       return;
     } 
-        axios.post('http://localhost:3001/auth/signup', state)
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, state)
             .then(res => {
                 console.log(res.data)
                 navigate('/login')
@@ -54,7 +54,7 @@ const Register = () => {
             .catch(err => console.log(err))
     }
     useEffect(() => {
-        axios.get('http://localhost:3001/check/check')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/check/check`)
             .then(res => {
                 setChecker(res.data.user)
             })

@@ -13,7 +13,7 @@ const ReleaseDateEdit = (props) => {
         event.preventDefault()  
         const platformObject = {gameId: props.gameId, platform: newPlatform.platform}
         const storedToken = localStorage.getItem('authToken');
-        axios.post(`http://localhost:3001/edit/create/platform`, platformObject, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/create/platform`, platformObject, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

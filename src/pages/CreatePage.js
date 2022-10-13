@@ -17,7 +17,7 @@ const CreatePage = () => {
     const handleSubmit = event => {
         event.preventDefault()
         // const storedToken = localStorage.getItem('authToken')
-        axios.post('http://localhost:3001/create', state)
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/create`, state)
             .then(res => {
                 console.log(res.data)
                 navigate(`/search/${res.data.game._id}`)

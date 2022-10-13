@@ -14,7 +14,7 @@ const PlatformEdit = (props) => {
     const handleCreate = () => {
         const releaseObject = {gameId: props.gameId, release: newRelease.release}
         const storedToken = localStorage.getItem('authToken');
-        axios.post(`http://localhost:3001/edit/create/release`, releaseObject, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/create/release`, releaseObject, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }
@@ -41,7 +41,7 @@ const PlatformEdit = (props) => {
     const handleUpdate = () => {
         // event.preventDefault()
         const storedToken = localStorage.getItem('authToken');
-        axios.put(`http://localhost:3001/edit/update/platform/${props.element._id}`, {platform: newPlatform}, {
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/update/platform/${props.element._id}`, {platform: newPlatform}, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }
@@ -63,7 +63,7 @@ const PlatformEdit = (props) => {
 
     const handleDelete = () => {
         const storedToken = localStorage.getItem('authToken');
-        axios.delete(`http://localhost:3001/edit/delete/platform/${props.element._id}`, {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/edit/delete/platform/${props.element._id}`, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

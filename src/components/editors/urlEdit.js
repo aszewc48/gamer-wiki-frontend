@@ -26,7 +26,7 @@ const UrlEdit = (props) => {
 
     const handleDelete = () => {
         const storedToken = localStorage.getItem('authToken');
-        axios.delete(`http://localhost:3001/edit/delete/url/${props.element._id}`, {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/edit/delete/url/${props.element._id}`, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

@@ -9,7 +9,7 @@ const GameBox = () => {
     const [filteredGames,setFilteredGames] = useState([])
     const [gamesObject,setGamesObject] = useState({})
     useEffect(() => {
-        axios.get(`http://localhost:3001/gamebox/`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/gamebox/`)
             .then(res => {
                 console.log(res.data.games)
                 setGames(res.data.games)

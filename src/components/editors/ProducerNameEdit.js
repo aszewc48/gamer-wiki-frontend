@@ -12,7 +12,7 @@ const ProducerNameEdit = (props) => {
     }
     const putData = () => {
         const storedToken = localStorage.getItem('authToken');
-        axios.put(`http://localhost:3001/edit/update/producer-name/${props.element._id}`, {producerName: newProducerName}, {
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/update/producer-name/${props.element._id}`, {producerName: newProducerName}, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }
@@ -34,7 +34,7 @@ const ProducerNameEdit = (props) => {
     const deleteProducerName = (event) => {
         event.preventDefault()
         const storedToken = localStorage.getItem('authToken');
-        axios.delete(`http://localhost:3001/edit/delete/producer-name/${props.element._id}`, {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/edit/delete/producer-name/${props.element._id}`, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

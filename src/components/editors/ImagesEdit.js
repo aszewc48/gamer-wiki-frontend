@@ -13,7 +13,7 @@ const ImagesEdit = (props) => {
         event.preventDefault()  
         const urlObject = {gameId: props.gameId, url: newUrl.url}
         const storedToken = localStorage.getItem('authToken');
-        axios.post(`http://localhost:3001/edit/create/url`, urlObject, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/create/url`, urlObject, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

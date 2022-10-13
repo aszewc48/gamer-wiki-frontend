@@ -13,7 +13,7 @@ const DeveloperEdit = (props) => {
         event.preventDefault()  
         const developerObject = {gameId: props.gameId, developerName: newDeveloperName.developerName}
         const storedToken = localStorage.getItem('authToken');
-        axios.post(`http://localhost:3001/edit/create/developer-name`, developerObject, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/create/developer-name`, developerObject, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

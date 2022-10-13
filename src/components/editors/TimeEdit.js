@@ -10,7 +10,7 @@ const TimeEdit = (props) => {
     }
     const putData = () => {  
         const storedToken = localStorage.getItem('authToken');
-        axios.put(`http://localhost:3001/edit/update/release/${props.element._id}`, {release: newRelease}, {
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/edit/update/release/${props.element._id}`, {release: newRelease}, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }
@@ -32,7 +32,7 @@ const TimeEdit = (props) => {
 
     const handleDelete = () => {
         const storedToken = localStorage.getItem('authToken');
-        axios.delete(`http://localhost:3001/edit/delete/release/${props.element._id}`, {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/edit/delete/release/${props.element._id}`, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

@@ -21,7 +21,7 @@ const ContentEdit = (props) => {
             gameId: props.gameId
         }
         const storedToken = localStorage.getItem('authToken');
-        axios.post(`http://localhost:3001/edit/create/content`, contentObject, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/create/content`, contentObject, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

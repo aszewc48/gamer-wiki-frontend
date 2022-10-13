@@ -17,7 +17,7 @@ const Login = () => {
     })
     const handleSubmit = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:3001/auth/login', state)
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, state)
             .then(res => {
                 console.log(res.data)
                 storeToken(res.data.authToken)

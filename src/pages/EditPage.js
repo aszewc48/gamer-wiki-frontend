@@ -24,7 +24,7 @@ const EditPage = () => {
     const [hidden,setHidden] = useState(false)
     useEffect(() => {getSingleGame(gameId)}, [gameId])
     const getSingleGame = (gameId) => {
-        axios.get(`http://localhost:3001/game/${gameId}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/game/${gameId}`)
             .then(res => {
                 console.log(res.data.foundGameData, 'GET GAME')
                 setGame(res.data.foundGameData)
@@ -33,7 +33,7 @@ const EditPage = () => {
         }
     const deleteAll = () => {
         const storedToken = localStorage.getItem('authToken');
-        axios.delete(`http://localhost:3001/edit/delete/all/${gameId}`, {
+        axios.delete(`${process.env.REACT_APP_BACKEND_URL}/edit/delete/all/${gameId}`, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }

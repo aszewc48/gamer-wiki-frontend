@@ -10,7 +10,7 @@ const SingleGame = () => {
     const [game,setGame] = useState('')
     useEffect(() => {getSingleGame(gameId)}, [gameId])
     const getSingleGame = (gameId) => {
-        axios.get(`http://localhost:3001/game/${gameId}`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/game/${gameId}`)
             .then(res => {
                 console.log(res.data.foundGameData)
                 setGame(res.data.foundGameData)

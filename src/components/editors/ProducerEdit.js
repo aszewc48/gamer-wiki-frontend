@@ -13,7 +13,7 @@ const ProducerEdit = (props) => {
         event.preventDefault()  
         const producerObject = {gameId: props.gameId, producerName: newProducerName.producerName}
         const storedToken = localStorage.getItem('authToken');
-        axios.post(`http://localhost:3001/edit/create/producer-name`, producerObject, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/edit/create/producer-name`, producerObject, {
             headers: {
               authorization: `Bearer ${storedToken}`
             }
